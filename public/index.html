@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Chatroom</title>
+		<script src="/scripts/jquery-2.2.3.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="/style/style.css">
+		<link rel="stylesheet" type="text/css" href="/style/speechbubble.css">
+		<link rel="stylesheet" type="text/css" href="/style/normalize.css">
+
+		<script type="text/javascript" src="./scripts/account-creator/spectrum.js"></script>
+		<link rel='stylesheet' href='./style/account-creator/spectrum.css' />
+
+        <link rel="stylesheet" type="text/css" href="./style/account-creator/iconselect.css" >
+        <script type="text/javascript" src="./scripts/account-creator/iconselect.js"></script>
+        <script type="text/javascript" src="./scripts/account-creator/iscroll.js"></script>
+
+		<script type="text/javascript" src="./scripts/account-creator/account-creator-format.js"></script>        
+
+        <script src="/scripts/main.js"></script> 
+	</head>
+	<body>
+		<header id="detail1">
+			<p id="edit-account" onclick ="div_show('account-setup')">Setup Account</p>
+			<p id="back-to-main">&larr;Change Room</p>
+		</header>
+		<div class="popup" id="account-setup">
+			<div id="reg-popup">
+				<div id="accountDetails" name="accountDetails">
+					<button id="close">X</button>
+					<h2>Setup your Account</h2>
+					<label>Pick a Username: </label></br>
+	    			<input type="text" id="username" placeholder="designate a username">
+	    			<label>Pick an Avatar: </label></br>
+	    			<div id="my-icon-select"></div>
+	    			<label>Pick a Color</label></br>
+	    			<input type='text' id="color-select"/></br>
+		    		<button id="moderator">turn on moderation</button></br>
+	    			<button id="confirm">submit</button>
+				</div>
+			</div>
+		</div>
+		<section id="room-selector">
+			<div id="createRoom">
+				<input type="text" id="newRoomName" placeholder="Name Your Room">
+				<button id="createroom-submit">Create Room</button>
+			</div>
+			<div id="roomList">
+			</div>
+		</section>
+		<section id="room">
+			<div id="window">
+				<div id="main-interface">
+					<section id="video-window">
+						<video class="video">
+							<source src="./media/airportvid.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+						<div id="seats">
+						</div>
+					</section>
+					<section id="chatbox">
+						<div id="chat-input">
+							<input type="text" id="message" placeholder="write a message">
+						</div>
+						<div id="message-window"></div>
+					</section>
+				</div>
+			</div>
+		</section>
+		<footer id="detail2"></footer>
+	</body>
+</html>
