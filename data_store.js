@@ -1,29 +1,18 @@
-var rooms = ['home'];
-var users = {};
-var history = {
-    home: []
-};
-
-function createRoom(roomName) {
-    history[roomName] = [];
-    rooms.push(roomName);
-}
-
-function maintainRoomHistory(room, message) {
-    console.log(history[room], room, message);
-    var hist = history[room];
-    console.log(message);
-    hist.push(message);
-    while (hist.length > 30) {
-        hist.shift();
-    }
-    history[room] = hist;
-}
-
 module.exports = {
-	rooms: rooms,
-	users: users,
-	history: history,
-	createRoom: createRoom,
-	maintainRoomHistory: maintainRoomHistory
+	rooms: {'home': {roomname: 'home', url: null, history: []}},
+	users: {},
+	createRoom: function(roomName) {
+            this.rooms[roomName] = {roomname: roomName, url: 'one', history: []};
+        },
+    changeURL: function(roomName, url) {
+            this.rooms[roomName].url = url;
+        },
+	maintainRoomHistory: function(roomName, message) {
+            var hist = this.rooms[roomName].history;
+            hist.push(message);
+            while (hist.length > 30) {
+                hist.shift();
+            }
+            this.rooms[roomName].history = hist;
+        }
 }

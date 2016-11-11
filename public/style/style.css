@@ -174,3 +174,6 @@ body {
   height: 94%;
   overflow: auto;
  }
+ #whichfilm {
+  display: none;
+ }

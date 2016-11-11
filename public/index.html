@@ -23,8 +23,8 @@
 	</head>
 	<body>
 		<header id="detail1">
-			<p id="edit-account" onclick ="div_show('account-setup')">Setup Account</p>
 			<p id="back-to-main">&larr;Change Room</p>
+			<p id="edit-account" onclick="div_show('account-setup')">Setup Account</p>
 		</header>
 		<div class="popup" id="account-setup">
 			<div id="reg-popup">
@@ -38,6 +38,7 @@
 	    			<label>Pick a Color</label></br>
 	    			<input type='text' id="color-select"/></br>
 		    		<button id="moderator">turn on moderation</button></br>
+					<input type="text" id="whichfilm" placeholder="Which film? type one, two, or three">
 	    			<button id="confirm">submit</button>
 				</div>
 			</div>
@@ -55,7 +56,7 @@
 				<div id="main-interface">
 					<section id="video-window">
 						<video class="video">
-							<source src="./media/airportvid.mp4" type="video/mp4">
+							<source src="./media/one.mp4" type="video/mp4" id="videosource">
 							Your browser does not support the video tag.
 						</video>
 						<div id="seats">

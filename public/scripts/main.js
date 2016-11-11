@@ -28,27 +28,27 @@ $(function() {
     $('#back-to-main').on('click', function(e) {
         e.preventDefault();
         socket.emit('switchRoom', 'home');
+        $('#whichfilm').hide();
         invertDisplay();
         getRooms();
     })
+    $('#whichfilm').on('change', function(e) {
+        e.preventDefault();
+        var number = $('#whichfilm').val();
+        if (number == 'one' || 'two' || 'three') {
+            socket.emit('set-film', number);
+        }
+    });
 
     $('#createroom-submit').on('click', function(e) {
         e.preventDefault();
         var roomname = $('#newRoomName').val()
         $.ajax('/room/' + roomname, {
-            type: 'POST',
-            statusCode: {
-                201: function() {
-                    console.log('logged in');
-                },
-                500: function() {
-                    console.log('could not login');
-                }
-            }
+            type: 'POST'
         }).done(function(res) {
             $('#newRoomName').val("");
             socket.emit('switchRoom', roomname);
-            invertDisplay()
+            invertDisplay();
             messageWindow.html("");
         }).fail(function(res) {
             console.log("login failed");
@@ -71,9 +71,9 @@ $(function() {
         }).done(function(res) {
             $('#roomList').html("");
             newMessage.val();
-            res.forEach(function(room) {
-                if (room != "home") {
-                    $('#roomList').append("<button class='roomLink' id='" + room + "'>" + room + "</button>");
+            res.forEach(function(roomname) {
+                if (roomname != "home") {
+                    $('#roomList').append("<button class='roomLink' id='" + roomname + "'>" + roomname + "</button>");
                 }
             });
         }).fail(function(res) {
@@ -94,6 +94,7 @@ $(function() {
             }
         }).done(function(res) {
             socket.emit('switchRoom', roomname);
+            getFilm(res.url);
             invertDisplay();
             messageWindow.html("");
         }).fail(function(res) {
@@ -127,6 +128,13 @@ $(function() {
     socket.on('new-message', addMessage);
     socket.on('update-chat', updateChat);
     socket.on('user-left', addMessage);
+    socket.on('set-film', getFilm);
+
+    function getFilm(number) {
+        console.log("./media/" + number + ".mp4");
+        $('#videosource').attr("src", "./media/" + number + ".mp4");
+        $("#video-window video")[0].load();
+    }
 
     function updateChat(roomname, messages) {
         messageWindow.append('<div class="message">You have joined room ' + roomname + '</div>');
@@ -158,6 +166,7 @@ $(function() {
         event.preventDefault();
         userObj.moderator = !userObj.moderator;
         if (userObj.moderator) {
+            $('#whichfilm').show();
             video.attr('controls', true);
             videoController.addEventListener("seeked", function () {
                 playPause('pause');
@@ -173,6 +182,7 @@ $(function() {
             });
             $(this).text('turn off moderation');
         } else {
+            $('#whichfilm').hide();
             video.attr('controls', false); 
             $(this).text('turn on moderation');
         }

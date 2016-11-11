@@ -6,16 +6,16 @@ router.get('/', function (req, res) {
 });
 
 router.get('/rooms', function (req, res) {
-    res.send(data.rooms);
+    res.send(Object.keys(data.rooms));
 });
 
 router.get('/room/:roomID', function (req, res) {
-    res.send(req.params.roomID);
+    res.send(data.rooms[req.params.roomID].history);
 });
 
 router.post('/room/:roomID', function (req, res) {
-    createRoom(req.params.roomID);
-    res.send();
+    data.createRoom(req.params.roomID);
+    res.send(data.rooms[req.params.roomID].history);
 });
 
 module.exports = router;
